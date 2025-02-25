@@ -1,11 +1,11 @@
-# DevCodePurgeDeveloperDataKit
+# CodePurgeDeveloperDataKit
 
 ![Swift](https://img.shields.io/badge/Swift-5.7-blue)
 ![Platform](https://img.shields.io/badge/Platform-macOS%2013.0-lightgrey)
 ![License](https://img.shields.io/badge/License-MIT-green)
-<!-- ![Version](https://img.shields.io/github/v/release/DevCodePurge/DevCodePurgeDeveloperDataKit?refresh=true) -->
+<!-- ![Version](https://img.shields.io/github/v/release/CodePurge/CodePurgeDeveloperDataKit?refresh=true) -->
 
-**DevCodePurgeDeveloperDataKit** is a module within the [DevCodePurge](https://github.com/DevCodePurge) project. This package introduces specialized components and tools for managing developer-related data such as archives, derived data, documentation caches, and device support files. It provides essential utilities and views for efficiently scanning, selecting, and purging Xcode-generated developer files.
+**CodePurgeDeveloperDataKit** is a module within the [CodePurge](https://github.com/CodePurge) project. This package introduces specialized components and tools for managing developer-related data such as archives, derived data, documentation caches, and device support files. It provides essential utilities and views for efficiently scanning, selecting, and purging Xcode-generated developer files.
 
 ## Features
 
@@ -19,7 +19,7 @@
 
 - **Custom Views**: 
   - Pre-built views for listing, scanning, and selecting developer data.
-  - Integration with DevCodePurgeKit’s reusable UI components.
+  - Integration with CodePurgeKit’s reusable UI components.
 
 - **Device Support Management**:
   - Scans and lists used and unused device support files.
@@ -37,14 +37,14 @@ Add the package to your `Package.swift` file:
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/DevCodePurge/DevCodePurgeDeveloperDataKit", branch: "main")
+    .package(url: "https://github.com/CodePurge/CodePurgeDeveloperDataKit", branch: "main")
 ]
 ```
 
 Then import it into your project:
 
 ```swift
-import DevCodePurgeDeveloperDataKit
+import CodePurgeDeveloperDataKit
 ```
 
 ## Components Overview
@@ -76,11 +76,11 @@ import DevCodePurgeDeveloperDataKit
 
 ## Documentation
 
-For detailed information, usage examples, and customization options, refer to the [comprehensive documentation](docs/DevCodePurgeDeveloperDataKit_Documentation.md).
+For detailed information, usage examples, and customization options, refer to the [comprehensive documentation](docs/CodePurgeDeveloperDataKit_Documentation.md).
 
 ## Contributing
 
-Feedback and contributions are welcome! If you have suggestions or encounter issues, please open an [issue](https://github.com/DevCodePurge/DevCodePurgeDeveloperDataKit/issues) or submit a pull request.
+Feedback and contributions are welcome! If you have suggestions or encounter issues, please open an [issue](https://github.com/CodePurge/CodePurgeDeveloperDataKit/issues) or submit a pull request.
 
 ## License
 
@@ -88,4 +88,4 @@ This project is licensed under the MIT License.
 
 ## About
 
-**DevCodePurgeDeveloperDataKit** is a part of the [DevCodePurge](https://github.com/DevCodePurge) ecosystem.
+**CodePurgeDeveloperDataKit** is a part of the [CodePurge](https://github.com/CodePurge) ecosystem.

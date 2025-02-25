@@ -1,6 +1,6 @@
-# DevCodePurgeDeveloperDataKit Documentation
+# CodePurgeDeveloperDataKit Documentation
 
-**DevCodePurgeDeveloperDataKit** is a Swift package that builds upon the foundation provided by `DevCodePurgeKit` to specifically manage and purge Xcode developer data such as Derived Data, Documentation Cache, Archives, and Device Support files. This package provides utilities, view models, and views to handle these operations efficiently and seamlessly.
+**CodePurgeDeveloperDataKit** is a Swift package that builds upon the foundation provided by `CodePurgeKit` to specifically manage and purge Xcode developer data such as Derived Data, Documentation Cache, Archives, and Device Support files. This package provides utilities, view models, and views to handle these operations efficiently and seamlessly.
 
 ## Features
 
