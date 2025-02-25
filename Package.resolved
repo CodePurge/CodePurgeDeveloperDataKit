@@ -1,12 +1,12 @@
 {
   "pins" : [
     {
-      "identity" : "devcodepurgekit",
+      "identity" : "codepurgekit",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/DevCodePurge/DevCodePurgeKit.git",
+      "location" : "https://github.com/CodePurge/CodePurgeKit.git",
       "state" : {
         "branch" : "main",
-        "revision" : "03b0f9abd8efbae852da5b8c250c8e12decaf098"
+        "revision" : "19671c6b2869a604e30368b33827e6e14e3beffa"
       }
     },
     {

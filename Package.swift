@@ -4,31 +4,31 @@
 import PackageDescription
 
 let package = Package(
-    name: "DevCodePurgeDeveloperDataKit",
+    name: "CodePurgeDeveloperDataKit",
     platforms: [
         .macOS(.v13)
     ],
     products: [
         .library(
-            name: "DevCodePurgeDeveloperDataKit",
-            targets: ["DevCodePurgeDeveloperDataKit"]
+            name: "CodePurgeDeveloperDataKit",
+            targets: ["CodePurgeDeveloperDataKit"]
         ),
     ],
     dependencies: [
         .package(url: "https://github.com/nikolainobadi/NnTestKit", from: "1.1.0"),
-        .package(url: "https://github.com/DevCodePurge/DevCodePurgeKit.git", branch: "main")
+        .package(url: "https://github.com/CodePurge/CodePurgeKit.git", branch: "main")
     ],
     targets: [
         .target(
-            name: "DevCodePurgeDeveloperDataKit",
+            name: "CodePurgeDeveloperDataKit",
             dependencies: [
-                "DevCodePurgeKit"
+                "CodePurgeKit"
             ]
         ),
         .testTarget(
-            name: "DevCodePurgeDeveloperDataKitTests",
+            name: "CodePurgeDeveloperDataKitTests",
             dependencies: [
-                "DevCodePurgeDeveloperDataKit",
+                "CodePurgeDeveloperDataKit",
                 .product(name: "NnTestHelpers", package: "NnTestKit")
             ]
         )
