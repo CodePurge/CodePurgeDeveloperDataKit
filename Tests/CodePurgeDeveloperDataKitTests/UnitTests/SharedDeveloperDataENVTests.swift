@@ -225,8 +225,6 @@ extension SharedDeveloperDataENVTests {
         waitForCondition(publisher: sut.$scanState, shouldFailIfConditionIsMet: true, cancellables: &cancellables, timeout: 1, condition: { $0 == .finished })
     }
     
-    // TODO: - include test to verify errors thrown are set in categoryErrors
-    
     func test_only_items_that_were_successfully_purged_are_removed_from_datasources() async {
         let archive = makeArchiveFolder(id: "0")
         let derivedData = makeDerivedDataFolder(id: "1")
