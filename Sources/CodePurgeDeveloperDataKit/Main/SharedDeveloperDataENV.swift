@@ -14,12 +14,12 @@ import CodePurgeKit
 /// for archives, derived data, and documentation cache. It also handles actions like starting
 /// scans, toggling categories, and purging selected items.
 final class SharedDeveloperDataENV: ObservableObject, ScanViewDelegate {
-    @Published var error: Error?
     @Published var totalSelectedCount: Int = 0
     @Published var totalSelectedSize: Int64 = 0
     @Published var scanState: ScanState = .notStarted
     @Published var confirmPurgeInfo: ConfirmPurgeInfo?
     @Published var selectedCategory: ScannedDeveloperCategoryInfo?
+    @Published var categoryErrors: [DeveloperDataCategory: DeveloperDataError] = [:]
     @Published var categoriesToScan: Set<DeveloperDataCategory> = Set(DeveloperDataCategory.allCases)
     @Published private var currentCategoryBeingScanned: DeveloperDataCategory?
     
@@ -113,16 +113,8 @@ extension SharedDeveloperDataENV {
         }
         
         Task {
-            do {
-                try await loadData()
-                await finishScan()
-            } catch {
-                let message = "failed to load data: \(error.localizedDescription)"
-                print(message)
-                await MainActor.run {
-                    scanState = .failed(message)
-                }
-            }
+            await loadData()
+            await finishScan()
         }
     }
 }
@@ -179,27 +171,35 @@ private extension SharedDeveloperDataENV {
         return archiveDataSource.selectedItemArray + derivedDataSource.selectedItemArray + docCacheDataSource.selectedItemArray + deviceSupportDatasource.selectedItemArray
     }
     
-    func loadData() async throws {
+    func loadData() async {
         for category in categoriesToScan.sorted(by: { $0.name < $1.name }) {
             await setCategoryBeingScanned(category)
             
-            switch category {
-            case .archives:
-                let list = try await delegate.loadArchives(progressDelegate: loadProgressDatasource)
-                
-                await setArchives(list)
-            case .derivedData:
-                let list = try await delegate.loadDerivedData(progressDelegate: loadProgressDatasource)
-                
-                await setDerivedData(list)
-            case .documentationCache:
-                let list = try await delegate.loadDocumentationCacheList(progressDelegate: loadProgressDatasource)
-                
-                await setDocCacheList(list)
-            case .deviceSupport:
-                let list = try await delegate.loadDeviceSupportFolders(progressDelegate: loadProgressDatasource)
-                
-                await setDeviceSupport(iOSList: list)
+            do {
+                switch category {
+                case .archives:
+                    let list = try await delegate.loadArchives(progressDelegate: loadProgressDatasource)
+                    
+                    await setArchives(list)
+                case .derivedData:
+                    let list = try await delegate.loadDerivedData(progressDelegate: loadProgressDatasource)
+                    
+                    await setDerivedData(list)
+                case .documentationCache:
+                    let list = try await delegate.loadDocumentationCacheList(progressDelegate: loadProgressDatasource)
+                    
+                    await setDocCacheList(list)
+                case .deviceSupport:
+                    let list = try await delegate.loadDeviceSupportFolders(progressDelegate: loadProgressDatasource)
+                    
+                    await setDeviceSupport(iOSList: list)
+                }
+            } catch {
+                if let devError = error as? DeveloperDataError {
+                    await setCategoryError(category: category, error: devError)
+                } else {
+                    await setCategoryError(category: category, error: .other(error.localizedDescription))
+                }
             }
         }
     }
@@ -237,6 +237,10 @@ private extension SharedDeveloperDataENV {
         currentCategoryBeingScanned = category
     }
     
+    func setCategoryError(category: DeveloperDataCategory, error: DeveloperDataError) {
+        categoryErrors[category] = error
+    }
+    
     /// Sets the archive data source with the provided list.
     ///
     /// - Parameter archives: The list of archive folders.
@@ -265,13 +269,6 @@ private extension SharedDeveloperDataENV {
         deviceSupportDatasource.list = iOSList
     }
     
-    /// Sets the current error state.
-    ///
-    /// - Parameter error: The error to set.
-    func setError(_ error: Error) {
-        self.error = error
-    }
-    
     /// Removes deleted items from all data sources.
     ///
     /// - Parameter nonDeletedIds: The IDs of items that were not deleted. Default is an empty array.
@@ -294,4 +291,23 @@ public protocol DeveloperDataDelegate: PurgeDelegate, DeviceSupportDelegate {
     func loadDerivedData(progressDelegate: ProgressInfoDelegate) async throws -> [DerivedDataFolder]
     func loadDeviceSupportFolders(progressDelegate: ProgressInfoDelegate) async throws -> [DeviceSupportFolder]
     func loadDocumentationCacheList(progressDelegate: ProgressInfoDelegate) async throws -> [DocumentationFolder]
+}
+
+public enum DeveloperDataError: Error {
+    case emptyPath
+    case missingFolder
+    case other(String)
+}
+
+extension DeveloperDataError {
+    var message: String {
+        switch self {
+        case .emptyPath:
+            return "Looks like there was a problem with the path to this category. Reset permissions from Settings and try again if you keep getting this error."
+        case .missingFolder:
+            return "You don't have anything to clean for this category!"
+        case .other(let message):
+            return "Something went wrong. Please reset permissions from settings and try again. Error: \(message)"
+        }
+    }
 }

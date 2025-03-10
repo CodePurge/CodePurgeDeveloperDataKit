@@ -86,7 +86,7 @@ fileprivate struct PurgeButton: View {
 // MARK: - Extension Dependencies
 fileprivate extension ArchiveListViewModel {
     static func customInit(env: SharedDeveloperDataENV) -> ArchiveListViewModel {
-        return .init(datasource: env.archiveDataSource, onShowInFinder: env.showInFinder(url:))
+        return .init(error: env.categoryErrors[.archives], datasource: env.archiveDataSource, onShowInFinder: env.showInFinder(url:))
     }
 }
 
