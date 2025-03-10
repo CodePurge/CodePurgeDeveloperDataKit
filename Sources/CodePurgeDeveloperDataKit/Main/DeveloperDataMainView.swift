@@ -92,18 +92,18 @@ fileprivate extension ArchiveListViewModel {
 
 fileprivate extension DerivedDataListViewModel {
     static func customInit(env: SharedDeveloperDataENV) -> DerivedDataListViewModel {
-        return .init(datasource: env.derivedDataSource)
+        return .init(error: env.categoryErrors[.derivedData], datasource: env.derivedDataSource)
     }
 }
 
 fileprivate extension DocumentationCacheListViewModel {
     static func customInit(env: SharedDeveloperDataENV) -> DocumentationCacheListViewModel {
-        return .init(xcodeVersion: env.getXcodeVersion(), datasource: env.docCacheDataSource)
+        return .init(xcodeVersion: env.getXcodeVersion(), error: env.categoryErrors[.documentationCache],  datasource: env.docCacheDataSource)
     }
 }
 
 fileprivate extension DeviceSupportViewModel {
     static func customInit(env: SharedDeveloperDataENV) -> DeviceSupportViewModel {
-        return .init(delegate: env, datasource: env.deviceSupportDatasource)
+        return .init(delegate: env, error: env.categoryErrors[.deviceSupport], datasource: env.deviceSupportDatasource)
     }
 }

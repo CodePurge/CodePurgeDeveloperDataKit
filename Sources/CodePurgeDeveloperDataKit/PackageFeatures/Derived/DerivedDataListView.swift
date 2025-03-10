@@ -33,6 +33,7 @@ struct DerivedDataListView: View {
         }
         .animation(.smooth, value: viewModel.canShowSelectOldFoldersButton)
         .withSelectionDetailFooter(selectionCount: viewModel.selectedItemCount, selectionSize: viewModel.selectedSize)
+        .showingErrorMessage(viewModel.error)
     }
 }
 
@@ -55,5 +56,5 @@ fileprivate struct FolderRow: View {
 
 // MARK: - Preview
 #Preview {
-    DerivedDataListView(viewModel: .init(datasource: .init()))
+    DerivedDataListView(viewModel: .init(error: nil, datasource: .init()))
 }

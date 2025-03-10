@@ -114,7 +114,7 @@ extension DeviceSupportViewModelTests {
     func makeSUT(deviceSupport: [DeviceSupportFolder] = [], infoToLoad: [DeviceBasicInfo] = [], throwError: Bool = false, file: StaticString = #filePath, line: UInt = #line) -> (sut: DeviceSupportViewModel, datasource: PurgableItemDataSource<DeviceSupportFolder>) {
         let delegate = DelegateStub(throwError: throwError, infoToLoad: infoToLoad)
         let datasource = PurgableItemDataSource<DeviceSupportFolder>(list: deviceSupport)
-        let sut = DeviceSupportViewModel(delegate: delegate, datasource: datasource)
+        let sut = DeviceSupportViewModel(delegate: delegate, error: nil, datasource: datasource)
         
         trackForMemoryLeaks(sut, file: file, line: line)
         trackForMemoryLeaks(delegate, file: file, line: line)

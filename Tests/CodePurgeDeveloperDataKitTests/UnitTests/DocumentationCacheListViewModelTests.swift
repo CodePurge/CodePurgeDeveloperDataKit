@@ -59,11 +59,10 @@ final class DocumentationCacheListViewModelTests: XCTestCase {
 // MARK: - SUT
 extension DocumentationCacheListViewModelTests {
     func makeSUT(xcodeVersion: String? = nil, list: [DocumentationFolder] = [], file: StaticString = #filePath, line: UInt = #line) -> DocumentationCacheListViewModel {
-        let sut = DocumentationCacheListViewModel(xcodeVersion: xcodeVersion, datasource: .init(list: list))
+        let sut = DocumentationCacheListViewModel(xcodeVersion: xcodeVersion, error: nil, datasource: .init(list: list))
         
         trackForMemoryLeaks(sut, file: file, line: line)
         
         return sut
     }
 }
-

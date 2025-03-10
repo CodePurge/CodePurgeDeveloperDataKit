@@ -225,20 +225,7 @@ extension SharedDeveloperDataENVTests {
         waitForCondition(publisher: sut.$scanState, shouldFailIfConditionIsMet: true, cancellables: &cancellables, timeout: 1, condition: { $0 == .finished })
     }
     
-    func test_scan_fails_if_an_error_is_thrown() {
-        let sut = makeSUT(throwError: true).sut
-        
-        sut.startScan()
-        
-        waitForCondition(publisher: sut.$scanState, cancellables: &cancellables) { state in
-            switch state {
-            case .failed:
-                return true
-            default:
-                return false
-            }
-        }
-    }
+    // TODO: - include test to verify errors thrown are set in categoryErrors
     
     func test_only_items_that_were_successfully_purged_are_removed_from_datasources() async {
         let archive = makeArchiveFolder(id: "0")

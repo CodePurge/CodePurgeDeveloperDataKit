@@ -122,7 +122,7 @@ extension DerivedDataListViewModelTests {
 extension DerivedDataListViewModelTests {
     func makeSUT(list: [DerivedDataFolder] = [], selectedItems: Set<DerivedDataFolder> = [], oldFolderDayValue: Int = 1, file: StaticString = #filePath, line: UInt = #line) -> (sut: DerivedDataListViewModel, datasource: PurgableItemDataSource<DerivedDataFolder>) {
         let datasource = makeDatasource(list: list, selectedItems: selectedItems)
-        let sut = DerivedDataListViewModel(oldFolderDayValue: oldFolderDayValue, datasource: datasource)
+        let sut = DerivedDataListViewModel(oldFolderDayValue: oldFolderDayValue, error: nil, datasource: datasource)
         
         trackForMemoryLeaks(sut, file: file, line: line)
         trackForMemoryLeaks(datasource, file: file, line: line)
