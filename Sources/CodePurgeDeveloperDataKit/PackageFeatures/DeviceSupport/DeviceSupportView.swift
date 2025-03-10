@@ -49,6 +49,7 @@ struct DeviceSupportView: View {
         } message: {
             Text("DevCodePurge will check for recently used devices for the Xcode app at Applications/Xcode.app\n\nIn the future, you will be able to select the location of the Xcode app that you would like to use.")
         }
+        .showingErrorMessage(viewModel.error)
     }
 }
 
@@ -94,5 +95,5 @@ fileprivate struct DeviceSupportRow: View {
         func loadDeviceInfoList() async throws -> [DeviceBasicInfo] { [] }
     }
     
-    return DeviceSupportView(viewModel: .init(delegate: PreviewDelegate(), datasource: .init(list: DeviceSupportFolder.sampleList)))
+    return DeviceSupportView(viewModel: .init(delegate: PreviewDelegate(), error: nil, datasource: .init(list: DeviceSupportFolder.sampleList)))
 }

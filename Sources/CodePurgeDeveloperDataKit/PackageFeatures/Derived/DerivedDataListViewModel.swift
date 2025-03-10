@@ -24,6 +24,8 @@ final class DerivedDataListViewModel: BasePurgeObservableObject<DerivedDataFolde
     /// The data source managing the list of derived data folders.
     private let datasource: PurgableItemDataSource<DerivedDataFolder>
     
+    let error: DeveloperDataError?
+    
     /// Initializes the view model with a specified number of days for old folders
     /// and a data source for managing derived data.
     ///
@@ -31,7 +33,8 @@ final class DerivedDataListViewModel: BasePurgeObservableObject<DerivedDataFolde
     ///   - oldFolderDayValue: The number of days after which a folder is considered old.
     ///                        Defaults to `30`.
     ///   - datasource: The data source managing the list of derived data folders.
-    init(oldFolderDayValue: Int = 30, datasource: PurgableItemDataSource<DerivedDataFolder>) {
+    init(oldFolderDayValue: Int = 30, error: DeveloperDataError?, datasource: PurgableItemDataSource<DerivedDataFolder>) {
+        self.error = error
         self.datasource = datasource
         self.oldFolderDayValue = oldFolderDayValue
         super.init(datasource: datasource)

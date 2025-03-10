@@ -111,7 +111,7 @@ extension ArchiveListViewModelTests {
 extension ArchiveListViewModelTests {
     func makeSUT(list: [ArchivePurgeFolder] = [], delegate: MockDelegate = .init(), file: StaticString = #filePath, line: UInt = #line) -> (sut: ArchiveListViewModel, datasource: PurgableItemDataSource<ArchivePurgeFolder>) {
         let datasource = makeDatasource(list: list)
-        let sut = ArchiveListViewModel(datasource: datasource, onShowInFinder: delegate.showInFinder(_:))
+        let sut = ArchiveListViewModel(error: nil, datasource: datasource, onShowInFinder: delegate.showInFinder(_:))
         
         trackForMemoryLeaks(sut, file: file, line: line)
         trackForMemoryLeaks(datasource, file: file, line: line)

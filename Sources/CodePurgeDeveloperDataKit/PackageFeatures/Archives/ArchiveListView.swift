@@ -33,6 +33,7 @@ struct ArchiveListView: View {
             .roundedList()
         }
         .withSelectionDetailFooter(selectionCount: viewModel.selectedItemCount, selectionSize: viewModel.selectedSize)
+        .showingErrorMessage(viewModel.error)
     }
 }
 
@@ -70,5 +71,6 @@ fileprivate struct ArchiveRow: View {
 
 // MARK: - Preview
 #Preview {
-    ArchiveListView(viewModel: .init(datasource: .init(), onShowInFinder: { _ in }))
+    ArchiveListView(viewModel: .init(error: .missingFolder, datasource: .init(), onShowInFinder: { _ in }))
 }
+

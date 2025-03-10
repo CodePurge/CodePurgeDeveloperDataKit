@@ -30,6 +30,7 @@ struct DocumentationCacheListView: View {
         }
         .roundedList()
         .withSelectionDetailFooter(selectionCount: viewModel.selectedItemCount, selectionSize: viewModel.selectedSize)
+        .showingErrorMessage(viewModel.error)
     }
 }
 
@@ -47,5 +48,5 @@ fileprivate struct DocCacheRow: View {
 
 // MARK: - Preview
 #Preview {
-    DocumentationCacheListView(viewModel: .init(xcodeVersion: nil, datasource: .init()))
+    DocumentationCacheListView(viewModel: .init(xcodeVersion: nil, error: nil, datasource: .init()))
 }
