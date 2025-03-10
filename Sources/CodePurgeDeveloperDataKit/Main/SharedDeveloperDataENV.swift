@@ -19,7 +19,7 @@ final class SharedDeveloperDataENV: ObservableObject, ScanViewDelegate {
     @Published var scanState: ScanState = .notStarted
     @Published var confirmPurgeInfo: ConfirmPurgeInfo?
     @Published var selectedCategory: ScannedDeveloperCategoryInfo?
-    @Published var categoryErrors: [DeveloperDataCategory: DeveloperDataError] = [:]
+    @Published var categoryErrors: [DeveloperDataCategory: ScanError] = [:]
     @Published var categoriesToScan: Set<DeveloperDataCategory> = Set(DeveloperDataCategory.allCases)
     @Published private var currentCategoryBeingScanned: DeveloperDataCategory?
     
@@ -195,10 +195,11 @@ private extension SharedDeveloperDataENV {
                     await setDeviceSupport(iOSList: list)
                 }
             } catch {
-                if let devError = error as? DeveloperDataError {
+                if let devError = error as? ScanError {
                     await setCategoryError(category: category, error: devError)
                 } else {
-                    await setCategoryError(category: category, error: .other(error.localizedDescription))
+                    // TODO: -
+//                    await setCategoryError(category: category, error: .other(error.localizedDescription))
                 }
             }
         }
@@ -237,7 +238,7 @@ private extension SharedDeveloperDataENV {
         currentCategoryBeingScanned = category
     }
     
-    func setCategoryError(category: DeveloperDataCategory, error: DeveloperDataError) {
+    func setCategoryError(category: DeveloperDataCategory, error: ScanError) {
         categoryErrors[category] = error
     }
     
@@ -291,23 +292,4 @@ public protocol DeveloperDataDelegate: PurgeDelegate, DeviceSupportDelegate {
     func loadDerivedData(progressDelegate: ProgressInfoDelegate) async throws -> [DerivedDataFolder]
     func loadDeviceSupportFolders(progressDelegate: ProgressInfoDelegate) async throws -> [DeviceSupportFolder]
     func loadDocumentationCacheList(progressDelegate: ProgressInfoDelegate) async throws -> [DocumentationFolder]
-}
-
-public enum DeveloperDataError: Error {
-    case emptyPath
-    case missingFolder
-    case other(String)
-}
-
-extension DeveloperDataError {
-    var message: String {
-        switch self {
-        case .emptyPath:
-            return "Looks like there was a problem with the path to this category. Reset permissions from Settings and try again if you keep getting this error."
-        case .missingFolder:
-            return "You don't have anything to clean for this category!"
-        case .other(let message):
-            return "Something went wrong. Please reset permissions from settings and try again. Error: \(message)"
-        }
-    }
 }

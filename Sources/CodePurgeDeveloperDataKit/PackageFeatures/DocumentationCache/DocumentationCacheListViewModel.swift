@@ -20,14 +20,14 @@ final class DocumentationCacheListViewModel: BasePurgeObservableObject<Documenta
     /// The data source managing the list of documentation folders.
     private let datasource: PurgableItemDataSource<DocumentationFolder>
     
-    let error: DeveloperDataError?
+    let error: ScanError?
     
     /// Initializes a new instance of `DocumentationCacheListViewModel`.
     ///
     /// - Parameters:
     ///   - xcodeVersion: The current version of Xcode, used to identify the current documentation folder.
     ///   - datasource: The data source for managing documentation folder data.
-    init(xcodeVersion: String?, error: DeveloperDataError?, datasource: PurgableItemDataSource<DocumentationFolder>) {
+    init(xcodeVersion: String?, error: ScanError?, datasource: PurgableItemDataSource<DocumentationFolder>) {
         self.xcodeVersion = xcodeVersion
         self.datasource = datasource
         self.error = error
