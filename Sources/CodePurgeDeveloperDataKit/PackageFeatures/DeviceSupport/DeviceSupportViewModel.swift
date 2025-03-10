@@ -23,14 +23,14 @@ final class DeviceSupportViewModel: BasePurgeObservableObject<DeviceSupportFolde
     private let loadingDelegate: ProgressInfoDatasource
     private let datasource: PurgableItemDataSource<DeviceSupportFolder>
     
-    let error: DeveloperDataError?
+    let error: ScanError?
     
     /// Initializes the view model with a delegate and data source.
     ///
     /// - Parameters:
     ///   - delegate: The delegate responsible for fetching device support data.
     ///   - datasource: The data source for managing device support folders.
-    init(delegate: DeviceSupportDelegate, error: DeveloperDataError?, datasource: PurgableItemDataSource<DeviceSupportFolder>) {
+    init(delegate: DeviceSupportDelegate, error: ScanError?, datasource: PurgableItemDataSource<DeviceSupportFolder>) {
         self.error = error
         self.delegate = delegate
         self.datasource = datasource

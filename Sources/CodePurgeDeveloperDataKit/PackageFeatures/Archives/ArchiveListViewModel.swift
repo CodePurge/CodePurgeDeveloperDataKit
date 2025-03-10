@@ -21,7 +21,7 @@ final class ArchiveListViewModel: BasePurgeObservableObject<ArchivePurgeFolder> 
     private let datasource: PurgableItemDataSource<ArchivePurgeFolder>
     private let onShowInFinder: (URL) -> Void
     
-    let error: DeveloperDataError?
+    let error: ScanError?
     
     /// Initializes the view model with a specified data source and Finder action.
     ///
@@ -29,7 +29,7 @@ final class ArchiveListViewModel: BasePurgeObservableObject<ArchivePurgeFolder> 
     ///   - oldArchiveDayValue: The number of days after which an archive is considered old. Default is `30`.
     ///   - datasource: The data source for managing archive folders.
     ///   - onShowInFinder: A closure to handle the "Show in Finder" action for a given URL.
-    init(oldArchiveDayValue: Int = 30, error: DeveloperDataError?, datasource: PurgableItemDataSource<ArchivePurgeFolder>, onShowInFinder: @escaping (URL) -> Void) {
+    init(oldArchiveDayValue: Int = 30, error: ScanError?, datasource: PurgableItemDataSource<ArchivePurgeFolder>, onShowInFinder: @escaping (URL) -> Void) {
         self.error = error
         self.datasource = datasource
         self.onShowInFinder = onShowInFinder

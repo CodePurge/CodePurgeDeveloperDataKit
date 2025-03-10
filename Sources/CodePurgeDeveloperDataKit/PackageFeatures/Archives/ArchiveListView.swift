@@ -71,6 +71,6 @@ fileprivate struct ArchiveRow: View {
 
 // MARK: - Preview
 #Preview {
-    ArchiveListView(viewModel: .init(error: .missingFolder, datasource: .init(), onShowInFinder: { _ in }))
+    ArchiveListView(viewModel: .init(error: nil, datasource: .init(), onShowInFinder: { _ in }))
 }
 
