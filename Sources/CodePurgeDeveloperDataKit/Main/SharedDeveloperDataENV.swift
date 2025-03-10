@@ -198,8 +198,7 @@ private extension SharedDeveloperDataENV {
                 if let devError = error as? ScanError {
                     await setCategoryError(category: category, error: devError)
                 } else {
-                    // TODO: -
-//                    await setCategoryError(category: category, error: .other(error.localizedDescription))
+                    await setCategoryError(category: category, error: .other(error.localizedDescription))
                 }
             }
         }
